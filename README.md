@@ -2,8 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/je4jlk0bvygwnoi3/branch/master?svg=true)](https://ci.appveyor.com/project/DoumanAsh/sr/branch/master)
 [![Build Status](https://travis-ci.org/DoumanAsh/sr.svg?branch=master)](https://travis-ci.org/DoumanAsh/sr)
-[![Crates.io](https://img.shields.io/crates/v/sr.svg)](https://crates.io/crates/sr)
-[![Dependency status](https://deps.rs/crate/sr/0.1.0/status.svg)](https://deps.rs/crate/sr)
+[![Crates.io](https://img.shields.io/crates/v/search_replace.svg)](https://crates.io/crates/search_replace)
 
 Simple utility to search and replace within files
 
