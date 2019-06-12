@@ -4,7 +4,7 @@ USAGE:
     sr [options] <pattern> <replace> [file]...
 
 OPTIONS:
-    -i, --in-place [SUFFIX] - Modifies files in place. If SUFFIX is specified creates creates backup with it.
+    -i, --in-place [SUFFIX] - Modifies files in place. If SUFFIX is specified creates backup with it.
     -q, --quiet             - Specifies silent mode. Default false.
     -h, --help              - Prints this help message.
 

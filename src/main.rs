@@ -78,16 +78,11 @@ fn run_from_files(args: cli::Args) -> Result<(), i32> {
                         continue;
                     }
 
-                    let dest_path = match args.suffix.as_ref() {
-                        Some(suffix) => format!("{}{}", file, suffix),
-                        None => file,
-                    };
-
-                    let tmp_dir = match path::Path::new(&dest_path).parent() {
+                    let tmp_dir = match path::Path::new(&file).parent() {
                         Some(tmp_dir) => tmp_dir,
                         None => {
                             if !args.silent {
-                                eprintln!("{}: Unable to get parent dir", dest_path);
+                                eprintln!("{}: Unable to get parent dir", file);
                             }
                             result = Err(1);
                             continue;
@@ -116,7 +111,7 @@ fn run_from_files(args: cli::Args) -> Result<(), i32> {
                                 Ok(_) => (),
                                 Err(error) => {
                                     if !args.silent {
-                                        eprintln!("{}: Unable to write. Error {}", dest_path, error);
+                                        eprintln!("{}: Unable to write. Error {}", file, error);
                                     }
                                     result = Err(1);
                                     continue;
@@ -128,7 +123,7 @@ fn run_from_files(args: cli::Args) -> Result<(), i32> {
                             Ok(_) => (),
                             Err(error) => {
                                 if !args.silent {
-                                    eprintln!("{}: Unable to write. Error {}", dest_path, error);
+                                    eprintln!("{}: Unable to write. Error {}", file, error);
                                 }
                                 result = Err(1);
                                 continue;
@@ -138,11 +133,29 @@ fn run_from_files(args: cli::Args) -> Result<(), i32> {
 
                     drop(input_mmap);
                     drop(input);
-                    match dest.persist(&dest_path) {
+
+                    match args.suffix.as_ref() {
+                        Some(suffix) => {
+                            let backup = format!("{}{}", file, suffix);
+                            match fs::rename(&file, &backup) {
+                                Ok(_) => (),
+                                Err(error) => {
+                                    if !args.silent {
+                                        eprintln!("{}: Unable to create backup. Error {}", backup, error);
+                                    }
+                                    result = Err(1);
+                                    continue;
+                                }
+                            }
+                        }
+                        None => (),
+                    };
+
+                    match dest.persist(&file) {
                         Ok(_) => (),
                         Err(error) => {
                             if !args.silent {
-                                eprintln!("{}: {}", dest_path, error);
+                                eprintln!("{}: {}", file, error);
                             }
                             result = Err(1);
                             continue;
@@ -176,16 +189,28 @@ fn run_from_files(args: cli::Args) -> Result<(), i32> {
 
                 drop(input);
 
-                let dest_path = match args.suffix.as_ref() {
-                    Some(suffix) => format!("{}{}", file, suffix),
-                    None => file,
+                match args.suffix.as_ref() {
+                    Some(suffix) => {
+                        let backup = format!("{}{}", file, suffix);
+                        match fs::rename(&file, &backup) {
+                            Ok(_) => (),
+                            Err(error) => {
+                                if !args.silent {
+                                    eprintln!("{}: Unable to create backup. Error {}", backup, error);
+                                }
+                                result = Err(1);
+                                continue;
+                            }
+                        }
+                    }
+                    None => (),
                 };
 
-                let mut dest = match fs::File::create(&dest_path) {
+                let mut dest = match fs::File::create(&file) {
                     Ok(dest) => dest,
                     Err(error) => {
                         if !args.silent {
-                            eprintln!("{}: Unable to create. Error {}", dest_path, error);
+                            eprintln!("{}: Unable to create. Error {}", file, error);
                         }
                         result = Err(1);
                         continue;
@@ -199,7 +224,7 @@ fn run_from_files(args: cli::Args) -> Result<(), i32> {
                     Ok(_) => (),
                     Err(error) => {
                         if !args.silent {
-                            eprintln!("{}: Unable to write. Error {}", dest_path, error);
+                            eprintln!("{}: Unable to write. Error {}", file, error);
                         }
                         result = Err(1);
                         continue;

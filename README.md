@@ -8,9 +8,9 @@ Simple utility to search and replace within files
 
 ## Download links
 
-* Windows [64bit](https://github.com/DoumanAsh/sr/releases/download/0.1.0/sr-0.1.0-x86_64-pc-windows-msvc.zip)
-* Linux [64bit](https://github.com/DoumanAsh/sr/releases/download/0.1.0/sr-0.1.0-x86_64-unknown-linux-gnu.zip)
-* OSX [64bit](https://github.com/DoumanAsh/sr/releases/download/0.1.0/sr-0.1.0-x86_64-apple-darwin.zip)
+* Windows [64bit](https://github.com/DoumanAsh/sr/releases/download/0.1.1/sr-0.1.1-x86_64-pc-windows-msvc.zip)
+* Linux [64bit](https://github.com/DoumanAsh/sr/releases/download/0.1.1/sr-0.1.1-x86_64-unknown-linux-gnu.zip)
+* OSX [64bit](https://github.com/DoumanAsh/sr/releases/download/0.1.1/sr-0.1.1-x86_64-apple-darwin.zip)
 
 ## Usage
 
