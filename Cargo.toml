@@ -16,6 +16,7 @@ tempfile = "3"
 [profile.release]
 lto = true
 opt-level = "z"
+codegen-units = 1
 
 [[bin]]
 path = "src/main.rs"
